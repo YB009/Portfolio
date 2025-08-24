@@ -3,6 +3,7 @@ import Card from '../components/Card'
 import { useState } from 'react'
 import { Phone, Mail, Download, CheckCircle2 } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
+import config from '../config'
 
 export default function Contact(){
   const [state, setState] = useState({ name:'', email:'', message:'', status:'idle' })
@@ -46,13 +47,14 @@ export default function Contact(){
     e.preventDefault()
     setState(s=>({...s, status:'loading'}))
     try{
-      const res = await fetch('http://localhost:3001/api/contact', {
+      const res = await fetch(config.getApiUrl('api/contact'), {
         method: 'POST', headers: { 'Content-Type':'application/json' },
         body: JSON.stringify({ name: state.name, email: state.email, message: state.message })
       })
       if(!res.ok) throw new Error('Bad response')
       setState({ name:'', email:'', message:'', status:'success' })
     }catch(err){
+      console.error('Contact form error:', err)
       setState(s=>({...s, status:'error'}))
     }
   }
