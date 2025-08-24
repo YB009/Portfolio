@@ -42,7 +42,7 @@ html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}<
 
 res.json({ ok: true })
 } catch (e) {
-console.error(e)
+console.error('Email error:', e.message)
 res.status(500).json({ error: 'Failed to send' })
 }
 })
