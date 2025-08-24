@@ -1,0 +1,1 @@
+export const cn = (...cls) => cls.filter(Boolean).join(' ')

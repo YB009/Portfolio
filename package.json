@@ -1,0 +1,14 @@
+{
+    "name": "dark-modern-portfolio",
+    "private": true,
+    "version": "1.0.0",
+    "workspaces": ["client", "server"],
+    "scripts": {
+    "dev": "concurrently -n CLIENT,SERVER -c magenta,cyan \"npm run --workspace client dev\" \"npm run --workspace server dev\"",
+    "build": "npm run --workspace client build",
+    "start": "npm run --workspace server start"
+    },
+    "devDependencies": {
+    "concurrently": "^8.2.2"
+    }
+    }
