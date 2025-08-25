@@ -29,6 +29,8 @@ MAIL_TO=owohdaniel09@gmail.com
 VITE_API_URL=https://your-service-name.onrender.com
 ```
 
+**Important**: Make sure your Gmail app password is current and 2FA is enabled on your Google account.
+
 ### Step 3: Server Configuration
 Your server is already perfectly configured to serve both the API and the built frontend files. It will:
 - Serve API endpoints at `/api/*`
@@ -52,6 +54,8 @@ Your server is already perfectly configured to serve both the API and the built 
 - **CORS Errors**: The backend should already handle this
 - **Environment Variables**: Make sure they're set correctly in Render
 - **Build Issues**: Check if the build command is working properly
+- **SMTP Timeouts**: The server now has improved timeout handling for cloud deployments
+- **Gmail App Password**: Ensure your Gmail app password is current and 2FA is enabled
 
 ## 📝 Example URL
 After deployment, you'll have:

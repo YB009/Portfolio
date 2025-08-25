@@ -1,10 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import nodemailer from 'nodemailer'
 import path from 'path'
 import fs from 'fs'
 import { fileURLToPath } from 'url'
+import { sendEmail } from './email-service.js'
 
 dotenv.config()
 
@@ -38,42 +38,9 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    // 465 => SMTPS (secure:true), 587 => STARTTLS (secure:false)
-    const port = Number(process.env.SMTP_PORT || 587)
-    const secure =
-      String(process.env.SMTP_SECURE || '').toLowerCase() === 'true' || port === 465
-
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port,
-      secure,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    })
-
-    // helpful on first deploy; throws if host/auth/TLS is wrong
-    await transporter.verify()
-
-    await transporter.sendMail({
-      from: `Portfolio <${process.env.SMTP_USER}>`, // Gmail must match authenticated user
-      to: process.env.MAIL_TO || process.env.SMTP_USER,
-      subject: `New message from ${name}`,
-      replyTo: email,
-      text: message,
-      html: `
-        <h2>New portfolio message</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <hr/>
-        <p>${String(message).replace(/\n/g, '<br/>')}</p>
-      `,
-    })
-
+    await sendEmail({ name, email, message })
     res.json({ ok: true })
   } catch (e) {
-    // Show useful context in Render logs (but not to the client)
     console.error('Email error:', {
       message: e?.message,
       code: e?.code,
@@ -82,8 +49,7 @@ app.post('/api/contact', async (req, res) => {
     })
     res.status(500).json({
       error: 'Failed to send',
-      hint:
-        'Check SMTP_* env vars on Render and use a Gmail App Password (2FA required).',
+      hint: 'Email service temporarily unavailable. Please try again later.',
     })
   }
 })
