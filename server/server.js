@@ -31,6 +31,31 @@ app.use(
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }))
 
+app.get('/api/test-email', async (_req, res) => {
+  try {
+    console.log('Testing email configuration...')
+    await sendEmail({ 
+      name: 'Test User', 
+      email: 'test@example.com', 
+      message: 'This is a test email from Render deployment.' 
+    })
+    res.json({ ok: true, message: 'Email test successful' })
+  } catch (error) {
+    console.error('Email test failed:', error)
+    res.status(500).json({ 
+      error: 'Email test failed', 
+      details: error.message,
+      config: {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        secure: process.env.SMTP_SECURE,
+        user: process.env.SMTP_USER,
+        hasPass: !!process.env.SMTP_PASS
+      }
+    })
+  }
+})
+
 app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body || {}
   if (!name || !email || !message) {

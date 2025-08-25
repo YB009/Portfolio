@@ -22,7 +22,13 @@ export async function sendEmail({ name, email, message }) {
     const port = Number(process.env.SMTP_PORT || 587)
     const secure = String(process.env.SMTP_SECURE || '').toLowerCase() === 'true' || port === 465
 
-    console.log('Attempting Gmail SMTP...')
+    console.log('Attempting Gmail SMTP...', {
+      host: process.env.SMTP_HOST,
+      port,
+      secure,
+      user: process.env.SMTP_USER,
+      hasPass: !!process.env.SMTP_PASS
+    })
     
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -39,14 +45,29 @@ export async function sendEmail({ name, email, message }) {
       pool: false,
       maxConnections: 1,
       maxMessages: 3,
+      // Additional options for better reliability
+      tls: {
+        rejectUnauthorized: false
+      },
+      debug: true, // Enable debug output
+      logger: true // Enable logging
     })
 
+    console.log('Verifying SMTP connection...')
     await transporter.verify()
-    await transporter.sendMail(emailContent)
-    console.log('Email sent successfully via Gmail SMTP')
-    return { success: true }
+    console.log('SMTP verification successful, sending email...')
+    
+    const result = await transporter.sendMail(emailContent)
+    console.log('Email sent successfully via Gmail SMTP:', result.messageId)
+    return { success: true, messageId: result.messageId }
   } catch (error) {
-    console.error('Gmail SMTP failed:', error.message)
+    console.error('Gmail SMTP failed:', {
+      message: error.message,
+      code: error.code,
+      command: error.command,
+      response: error.response,
+      responseCode: error.responseCode
+    })
     
     // If Gmail fails, try alternative approach or return error
     throw new Error(`Email service unavailable: ${error.message}`)
