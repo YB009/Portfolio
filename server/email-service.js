@@ -1,10 +1,56 @@
 import nodemailer from 'nodemailer'
 
-// Email service configuration with fallback options
+/**
+ * Resolve a reliable Gmail transport from env.
+ * Works with:
+ *   - PORT=465 + SMTP_SECURE=true  (SMTPS/SSL)
+ *   - PORT=587 + SMTP_SECURE=false (STARTTLS)
+ * Requires a Gmail App Password (NOT your normal password).
+ */
+function createTransportFromEnv() {
+  const host   = (process.env.SMTP_HOST || 'smtp.gmail.com').trim()
+  const port   = Number(process.env.SMTP_PORT || 587)
+  const secure = String(process.env.SMTP_SECURE || '').toLowerCase() === 'true' || port === 465
+  const user   = (process.env.SMTP_USER || '').trim()
+  const pass   = (process.env.SMTP_PASS || '').trim()
+
+  if (!host || !user || !pass) {
+    throw new Error('SMTP configuration incomplete. Ensure SMTP_HOST, SMTP_USER, SMTP_PASS are set.')
+  }
+
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure,                               // 465 => true, 587 => false (STARTTLS)
+    auth: { user, pass },
+    // Gmail requires modern TLS
+    tls: { minVersion: 'TLSv1.2' },
+    // Conservative timeouts for cloud platforms
+    connectionTimeout: 60_000,
+    greetingTimeout:   30_000,
+    socketTimeout:     60_000,
+  })
+}
+
+/**
+ * Send a contact message email.
+ */
 export async function sendEmail({ name, email, message }) {
-  const emailContent = {
-    from: `Portfolio <${process.env.SMTP_USER}>`,
-    to: process.env.MAIL_TO || process.env.SMTP_USER,
+  const fromAddr = (process.env.SMTP_USER || '').trim()         // must match authenticated Gmail
+  const toAddr   = (process.env.MAIL_TO || process.env.SMTP_USER || '').trim()
+
+  if (!fromAddr || !toAddr) {
+    throw new Error('MAIL_TO/SMTP_USER not configured')
+  }
+
+  const transporter = createTransportFromEnv()
+
+  // Will throw if auth/TLS/host are wrong — great for first-deploy diagnostics
+  await transporter.verify()
+
+  const info = await transporter.sendMail({
+    from: fromAddr,                       // keep it exact for Gmail
+    to:   toAddr,
     subject: `New message from ${name}`,
     replyTo: email,
     text: message,
@@ -15,61 +61,7 @@ export async function sendEmail({ name, email, message }) {
       <hr/>
       <p>${String(message).replace(/\n/g, '<br/>')}</p>
     `,
-  }
+  })
 
-  // Try Gmail SMTP first
-  try {
-    const port = Number(process.env.SMTP_PORT || 587)
-    const secure = String(process.env.SMTP_SECURE || '').toLowerCase() === 'true' || port === 465
-
-    console.log('Attempting Gmail SMTP...', {
-      host: process.env.SMTP_HOST,
-      port,
-      secure,
-      user: process.env.SMTP_USER,
-      hasPass: !!process.env.SMTP_PASS
-    })
-    
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port,
-      secure,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-      // Enhanced timeout settings for cloud deployments
-      connectionTimeout: 60000,
-      greetingTimeout: 30000,
-      socketTimeout: 60000,
-      pool: false,
-      maxConnections: 1,
-      maxMessages: 3,
-      // Additional options for better reliability
-      tls: {
-        rejectUnauthorized: false
-      },
-      debug: true, // Enable debug output
-      logger: true // Enable logging
-    })
-
-    console.log('Verifying SMTP connection...')
-    await transporter.verify()
-    console.log('SMTP verification successful, sending email...')
-    
-    const result = await transporter.sendMail(emailContent)
-    console.log('Email sent successfully via Gmail SMTP:', result.messageId)
-    return { success: true, messageId: result.messageId }
-  } catch (error) {
-    console.error('Gmail SMTP failed:', {
-      message: error.message,
-      code: error.code,
-      command: error.command,
-      response: error.response,
-      responseCode: error.responseCode
-    })
-    
-    // If Gmail fails, try alternative approach or return error
-    throw new Error(`Email service unavailable: ${error.message}`)
-  }
+  return { success: true, messageId: info.messageId }
 }

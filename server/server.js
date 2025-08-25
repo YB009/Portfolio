@@ -65,11 +65,11 @@ app.post('/api/contact', async (req, res) => {
   try {
     await sendEmail({ name, email, message })
     res.json({ ok: true })
-  } catch (e) {
+} catch (e) {
+    // Render logs will now show something useful like EAUTH / ETIMEDOUT / ECONNECTION
     console.error('Email error:', {
       message: e?.message,
       code: e?.code,
-      command: e?.command,
       response: e?.response && e.response.toString(),
     })
     res.status(500).json({
@@ -77,6 +77,7 @@ app.post('/api/contact', async (req, res) => {
       hint: 'Email service temporarily unavailable. Please try again later.',
     })
   }
+  
 })
 
 /* ------------------ serve React build in production (SPA) ------------------ */
