@@ -1,5 +1,5 @@
 <!-- PROJECT HEADER -->
-<h1 align="center">Dark Modern Portfolio</h1>
+<h1 align="center">Owolabi's Portfolio</h1>
 <p align="center">
   <i>A sleek, animated developer portfolio built with React (Vite), Tailwind CSS, Framer Motion, and an Express API.</i>
 </p>
