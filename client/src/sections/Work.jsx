@@ -8,20 +8,59 @@ export default function Work() {
   const anchorRef = useRef(null)
   const [pillXY, setPillXY] = useState(null)
 
-  // Place the pill just BELOW the "Glass pill effect / Drag to move around" text,
-  // using DOCUMENT coordinates so its position doesn't depend on what the user is viewing.
+  // Place the pill just BELOW the topic text, with responsive spawn positions.
+  // Recalculate on resize and when layout changes (via ResizeObserver).
   useEffect(() => {
-    const place = () => {
+    const computePosition = () => {
       const el = anchorRef.current
       if (!el) { setPillXY({ x: 16, y: 16 }); return }
+
       const r = el.getBoundingClientRect()
-      const x = Math.max(12, r.left + window.scrollX + 4)   // left aligned to text, slight inset
-      const y = r.bottom + window.scrollY + 12               // a little gap beneath the text
+      const baseX = r.left + window.scrollX
+      const baseY = r.bottom + window.scrollY
+
+      // Tailwind-esque breakpoints
+      const sm = window.matchMedia('(min-width: 640px)').matches
+      const md = window.matchMedia('(min-width: 768px)').matches
+      const lg = window.matchMedia('(min-width: 1024px)').matches
+
+      let x
+      let y = baseY + 12 // small gap beneath the label
+
+      if (!sm) {
+        // Phones: center-ish near the anchor so it doesn't overlap edges
+        const approxPillWidth = Math.min(Math.max(window.innerWidth * 0.24, 150), 240)
+        x = Math.max(12, Math.round((window.innerWidth - approxPillWidth) / 2))
+      } else if (sm && !md) {
+        // Small tablets: align with text but keep a small inset
+        x = Math.max(12, baseX + 4)
+      } else if (md && !lg) {
+        // Tablets: align to text; layout is wider so no extra inset
+        x = Math.max(12, baseX)
+      } else {
+        // Desktop and up: left align with the text block
+        x = Math.max(16, baseX)
+      }
+
       setPillXY({ x, y })
     }
-    // wait a frame for layout to settle
-    const id = requestAnimationFrame(place)
-    return () => cancelAnimationFrame(id)
+
+    // Run after layout is ready
+    const id = requestAnimationFrame(computePosition)
+
+    // Listen for viewport resizes
+    window.addEventListener('resize', computePosition)
+
+    // Observe layout/content changes that might move the anchor
+    const ro = new ResizeObserver(computePosition)
+    ro.observe(document.documentElement)
+    if (anchorRef.current) ro.observe(anchorRef.current)
+
+    return () => {
+      cancelAnimationFrame(id)
+      window.removeEventListener('resize', computePosition)
+      ro.disconnect()
+    }
   }, [])
 
   return (

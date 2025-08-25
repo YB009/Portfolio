@@ -20,8 +20,26 @@ export default function LiquidGlass({
     const measure = () => {
       const d = document.documentElement
       const b = document.body
+
+      // Avoid feedback loop: our absolute surface can extend the document size
+      // and then we would read that inflated size back. Temporarily collapse the
+      // surface while measuring intrinsic document dimensions.
+      const node = surfaceRef.current
+      const prevW = node?.style.width
+      const prevH = node?.style.height
+      if (node) {
+        node.style.width = '0px'
+        node.style.height = '0px'
+      }
+
       const w = Math.max(d.scrollWidth, b.scrollWidth, window.innerWidth)
       const h = Math.max(d.scrollHeight, b.scrollHeight, window.innerHeight)
+
+      if (node) {
+        node.style.width = prevW || ''
+        node.style.height = prevH || ''
+      }
+
       setDocSize({ w, h })
     }
     measure()
