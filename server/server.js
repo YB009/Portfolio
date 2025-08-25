@@ -46,6 +46,20 @@ app.use(cors({
 /* --------------------------------- routes -------------------------------- */
 app.get('/api/health', (_req, res) => res.json({ ok: true }))
 
+app.get('/api/debug', (_req, res) => {
+  res.json({
+    message: 'API is working',
+    timestamp: new Date().toISOString(),
+    env: {
+      NODE_ENV: process.env.NODE_ENV,
+      PORT: process.env.PORT,
+      SMTP_HOST: process.env.SMTP_HOST,
+      SMTP_USER: process.env.SMTP_USER ? '***set***' : '***not set***',
+      SMTP_PASS: process.env.SMTP_PASS ? '***set***' : '***not set***'
+    }
+  })
+})
+
 app.get('/api/test-email', async (_req, res) => {
   try {
     await verifyTransport()

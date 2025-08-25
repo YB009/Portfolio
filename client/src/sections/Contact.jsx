@@ -46,12 +46,25 @@ export default function Contact(){
   const submit = async (e) => {
     e.preventDefault()
     setState(s=>({...s, status:'loading'}))
+    
+    const apiUrl = config.getApiUrl('api/contact')
+    console.log('Submitting to:', apiUrl)
+    
     try{
-      const res = await fetch(config.getApiUrl('api/contact'), {
-        method: 'POST', headers: { 'Content-Type':'application/json' },
+      const res = await fetch(apiUrl, {
+        method: 'POST', 
+        headers: { 'Content-Type':'application/json' },
         body: JSON.stringify({ name: state.name, email: state.email, message: state.message })
       })
-      if(!res.ok) throw new Error('Bad response')
+      
+      console.log('Response status:', res.status)
+      
+      if(!res.ok) {
+        const errorData = await res.json().catch(() => ({}))
+        console.error('API Error:', errorData)
+        throw new Error(`HTTP ${res.status}: ${errorData.error || 'Bad response'}`)
+      }
+      
       setState({ name:'', email:'', message:'', status:'success' })
     }catch(err){
       console.error('Contact form error:', err)

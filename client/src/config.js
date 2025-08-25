@@ -7,7 +7,19 @@ const config = {
   getApiUrl: (endpoint) => {
     const baseUrl = config.apiBaseUrl.replace(/\/$/, '') // Remove trailing slash
     const cleanEndpoint = endpoint.replace(/^\//, '') // Remove leading slash
-    return `${baseUrl}/${cleanEndpoint}`
+    const fullUrl = `${baseUrl}/${cleanEndpoint}`
+    
+    // Debug logging in development
+    if (import.meta.env.DEV) {
+      console.log('API URL Debug:', {
+        VITE_API_URL: import.meta.env.VITE_API_URL,
+        apiBaseUrl: config.apiBaseUrl,
+        endpoint,
+        fullUrl
+      })
+    }
+    
+    return fullUrl
   }
 }
 
