@@ -76,7 +76,7 @@ export default function LiquidGlass({
           background:
             'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04))',
           backdropFilter: 'blur(2px) saturate(135%)',
-          WebkitBackdropFilter: 'blur(2px) saturate(135%)',
+          WebkitBackdropFilter: 'blur(0.5px) saturate(135%)',
           border: '1px solid rgba(255,255,255,.06)',
           boxShadow:
             '0 14px 46px rgba(0,0,0,.45), 0 2px 0 rgba(255,255,255,.06) inset, 0 0 0 1px rgba(255,255,255,.09) inset',
