@@ -75,7 +75,7 @@ export default function LiquidGlass({
           // extra-clear glass look
           background:
             'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04))',
-          backdropFilter: 'blur(2px) saturate(135%)',
+          backdropFilter: 'blur(0.2px) saturate(135%)',
           WebkitBackdropFilter: 'blur(0.5px) saturate(135%)',
           border: '1px solid rgba(255,255,255,.06)',
           boxShadow:
