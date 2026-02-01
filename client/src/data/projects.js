@@ -32,13 +32,13 @@ const projects = [
       tags: ['JavaScript', 'Tailwind', 'Express', 'EJS', 'Node'],
     },
     {
-      id: 'darvin',
-      title: 'Darvin Motors',
-      url: 'https://darvin-motors.onrender.com/',
-      logo: '/logos/darvin.png',
+      id: 'customer_review',
+      title: 'Customer Review Sentiment Analyzer',
+      url: 'https://customer-review-model-7t2lzkzmuhxa8vdhqxge2r.streamlit.app/',
+      logo: '/logos/customer_review.png',
       blurb:
-        'Auto business presence with gradient typography and soft glow.',
-      tags: ['JavaScript', 'Tailwind', 'Express', 'EJS', 'Node'],
+        'A web application for analyzing the sentiment of customer reviews. Supports text input and CSV file uploads for batch processing.',
+      tags: ['Python', 'Streamlit', 'TextBlob', 'NLTK', 'Pandas'],
     },
     {
       id: 'acc',
