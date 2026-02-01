@@ -5,6 +5,15 @@
 
 const projects = [
     {
+      id: 'customer_review',
+      title: 'Customer Review Sentiment Analyzer',
+      url: 'https://customer-review-model-7t2lzkzmuhxa8vdhqxge2r.streamlit.app/',
+      logo: '/logos/customer_review.png',
+      blurb:
+        'A web application for analyzing the sentiment of customer reviews. Supports text input and CSV file uploads for batch processing.',
+      tags: ['Python', 'Streamlit', 'TextBlob', 'NLTK', 'Pandas'],
+    },
+    {
       id: 'dcr',
       title: 'DCR Auto Electrics',
       url: 'https://dcr-4tvi.onrender.com/',
@@ -30,15 +39,6 @@ const projects = [
       blurb:
         'Mobile detailing site with booking CTA and polished glass surfaces.',
       tags: ['JavaScript', 'Tailwind', 'Express', 'EJS', 'Node'],
-    },
-    {
-      id: 'customer_review',
-      title: 'Customer Review Sentiment Analyzer',
-      url: 'https://customer-review-model-7t2lzkzmuhxa8vdhqxge2r.streamlit.app/',
-      logo: '/logos/customer_review.png',
-      blurb:
-        'A web application for analyzing the sentiment of customer reviews. Supports text input and CSV file uploads for batch processing.',
-      tags: ['Python', 'Streamlit', 'TextBlob', 'NLTK', 'Pandas'],
     },
     {
       id: 'acc',
