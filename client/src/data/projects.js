@@ -32,13 +32,13 @@ const projects = [
       tags: ['React', 'Tailwind', 'Express', 'Vite', 'Node'],
     },
     {
-      id: 'svm',
-      title: 'Slick Mobile Valets & Detailing',
-      url: 'https://svm-heic.onrender.com/',
-      logo: '/logos/svm.png',
+      id: 'workvite',
+      title: 'Workvite',
+      url: 'https://team-task-manager-p15t.onrender.com',
+      logo: '/logos/workvite.png',
       blurb:
-        'Mobile detailing site with booking CTA and polished glass surfaces.',
-      tags: ['JavaScript', 'Tailwind', 'Express', 'EJS', 'Node'],
+        'Team task manager with a React + Vite UI, Firebase auth (email/password + social logins), and an Express + Prisma API backed by PostgreSQL. Includes team/role-based organization and task workflows.',
+      tags: ['React', 'Vite', 'Tailwind', 'Firebase', 'Express', 'Prisma', 'PostgreSQL'],
     },
     {
       id: 'acc',
