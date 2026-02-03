@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Ring3D from './Ring3D'
+import FollowEyes from './FollowEyes'
 
 /**
  * Loader screen:
@@ -79,6 +80,10 @@ export default function Loader({ onDone, textTop = "Owolabi Daniel's Portfolio",
       <Ring3D tilt={tilt} />
 
       {/* Text layers (front) */}
+      <div className="absolute inset-x-0 top-0 flex justify-center pt-[76px] z-[3]">
+        <FollowEyes />
+      </div>
+
       <div className="loader-3d">
         <div ref={wrapRef} className="loader-layers">
           <h1 className="loader-title" style={{ transform: 'translateZ(80px)' }}>

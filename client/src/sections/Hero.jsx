@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import Button from '../components/Button'
 import Socials from '../components/Socials'
 import Marquee from '../components/Marquee'
-import FollowEyes from '../components/FollowEyes'
 
 export default function Hero() {
   return (
@@ -48,10 +47,6 @@ export default function Hero() {
             See my work
           </a>
         </motion.div>
-
-        <div className="mt-5 flex justify-center">
-          <FollowEyes />
-        </div>
 
         <div className="mt-10 flex items-center justify-center">
           <Socials />
