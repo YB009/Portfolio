@@ -2,12 +2,36 @@ import { useEffect, useRef, useState } from 'react'
 
 export default function FollowEyes() {
   const eyeRefs = useRef([])
+  const [enabled, setEnabled] = useState(() => {
+    if (typeof window === 'undefined') return true
+    return window.matchMedia('(min-width: 768px)').matches
+  })
   const [offsets, setOffsets] = useState([
     { x: 0, y: 0 },
     { x: 0, y: 0 },
   ])
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mql = window.matchMedia('(min-width: 768px)')
+    const onChange = (e) => setEnabled(e.matches)
+    setEnabled(mql.matches)
+    if (mql.addEventListener) {
+      mql.addEventListener('change', onChange)
+    } else {
+      mql.addListener(onChange)
+    }
+    return () => {
+      if (mql.removeEventListener) {
+        mql.removeEventListener('change', onChange)
+      } else {
+        mql.removeListener(onChange)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!enabled) return
     let raf = null
     let last = { x: 0, y: 0 }
 
@@ -49,7 +73,9 @@ export default function FollowEyes() {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseleave', onLeave)
     }
-  }, [])
+  }, [enabled])
+
+  if (!enabled) return null
 
   return (
     <div className="flex items-center justify-center gap-6">
