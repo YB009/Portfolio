@@ -245,8 +245,8 @@ Keep the download button. Some browsers/extensions block inline PDF; the site pr
 
 ## 👤 Author
 
-**Owolabi Daniel** — B.Sc. Computer Science, Covenant University (Nigeria).  
-Full‑stack developer with 1+ year shipping:
+**Owolabi Daniel** — B.Sc. Computer Science.  
+Full‑stack developer with 2+ year shipping:
 - Production sites for startups & SMEs
 - Booking flows and marketing sites
 - Node/Express APIs with clean boundaries
