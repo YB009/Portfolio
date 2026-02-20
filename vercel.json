@@ -1,5 +1,5 @@
 {
   "installCommand": "npm install",
-  "buildCommand": "cd client && npm run build -- --outDir ../dist",
-  "outputDirectory": "dist"
+  "buildCommand": "npm run --workspace client build",
+  "outputDirectory": "client/dist"
 }
