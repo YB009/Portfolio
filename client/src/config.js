@@ -1,26 +1,23 @@
-// Configuration for different environments
-const config = {
-  // API base URL - will be different in development vs production
-  apiBaseUrl: import.meta.env.VITE_API_URL || 'http://localhost:3001',
-  
-  // Build the full API URL for endpoints
-  getApiUrl: (endpoint) => {
-    const baseUrl = config.apiBaseUrl.replace(/\/$/, '') // Remove trailing slash
-    const cleanEndpoint = endpoint.replace(/^\//, '') // Remove leading slash
-    const fullUrl = `${baseUrl}/${cleanEndpoint}`
-    
-    // Debug logging in development
-    if (import.meta.env.DEV) {
-      console.log('API URL Debug:', {
-        VITE_API_URL: import.meta.env.VITE_API_URL,
-        apiBaseUrl: config.apiBaseUrl,
-        endpoint,
-        fullUrl
-      })
-    }
-    
-    return fullUrl
-  }
-}
+// In production on Vercel we call same-origin serverless routes (/api/*).
+// In local development we keep localhost server fallback unless VITE_API_URL is set.
+const apiBaseUrl = (
+  import.meta.env.VITE_API_URL ??
+  (import.meta.env.DEV ? "http://localhost:3001" : "")
+).trim();
 
-export default config
+const config = {
+  apiBaseUrl,
+
+  getApiUrl: (endpoint) => {
+    const cleanEndpoint = String(endpoint || "").replace(/^\//, "");
+
+    if (!config.apiBaseUrl) {
+      return `/${cleanEndpoint}`;
+    }
+
+    const baseUrl = config.apiBaseUrl.replace(/\/$/, "");
+    return `${baseUrl}/${cleanEndpoint}`;
+  },
+};
+
+export default config;
