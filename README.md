@@ -19,7 +19,7 @@
   <a href="#-project-structure">Structure</a> •
   <a href="#-quickstart-local">Quickstart</a> •
   <a href="#-environment-variables">Environment</a> •
-  <a href="#-deployment-on-render">Render Deploy</a> •
+  <a href="https://owolabi-portfolio.vercel.app/">Vercel Deploy</a> •
   <a href="#-api">API</a> •
   <a href="#-troubleshooting">Troubleshooting</a>
 </p>
