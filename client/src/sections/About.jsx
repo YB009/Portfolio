@@ -54,12 +54,12 @@ export default function About() {
       id="about"
       eyebrow="About"
       title="Hi, I’m Owolabi Daniel"
-      subtitle="BSc Computer Science • Covenant University (Nigeria) • Web developer (1+ year)"
+      subtitle="BSc Computer Science • Web developer (2+ year)"
     >
       <Card>
         <div className="space-y-4">
           <p className="text-slate-300 leading-relaxed">
-            I’m a Nigerian software developer and a Computer Science graduate from
+            I’m a software developer and a Computer Science graduate from
             Covenant University. Over the last two years I’ve focused on modern web development
             building fast, accessible interfaces with React and Tailwind, and robust APIs with
             Node.js and Express.
