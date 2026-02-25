@@ -19,7 +19,7 @@
   <a href="#-project-structure">Structure</a> •
   <a href="#-quickstart-local">Quickstart</a> •
   <a href="#-environment-variables">Environment</a> •
-  <a href="#-deployment-on-render">Render Deploy</a> •
+  <a href="https://owolabi-portfolio.vercel.app/">Vercel Deploy</a> •
   <a href="#-api">API</a> •
   <a href="#-troubleshooting">Troubleshooting</a>
 </p>
@@ -155,46 +155,6 @@ npm run --workspace server start
 
 ---
 
-## ☁️ Deployment on Render
-
-### Single service (API + SPA on the same URL)
-
-**Build Command**
-```bash
-npm install && npm run --workspace client build && npm install --workspace server
-```
-
-**Start Command**
-```bash
-node server/server.js
-```
-
-**Environment**
-```ini
-NODE_VERSION=20
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587        # or 465
-SMTP_SECURE=false    # true if 465, false if 587
-SMTP_USER=your@gmail.com
-SMTP_PASS=<gmail app password>
-MAIL_TO=your@gmail.com
-```
-
-The server statically serves `client/dist` and applies an SPA fallback for client‑side routes.
-
-### Two services (Static + API)
-
-**Static Site** (root: `client`)  
-- Build: `npm install && npm run build`  
-- Publish directory: `dist`  
-- Env: `VITE_API_URL=https://<your-api>.onrender.com`
-
-**Web Service** (root: `server`)  
-- Build: `npm install`  
-- Start: `node server.js`  
-- Env: SMTP vars above + `ORIGIN=https://<your-static>.onrender.com`
-
----
 
 ## 🔌 API
 
