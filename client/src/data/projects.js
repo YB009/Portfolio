@@ -25,7 +25,7 @@ const projects = [
   {
     id: 'dcr',
     title: 'DCR Auto Electrics',
-    url: 'https://dcr-4tvi.onrender.com/',
+    url: 'https://dcr-auto1.vercel.app/',
     logo: '/logos/dcr.png', // upload to client/public/logos/dcr.png
     blurb:
       'Dark modern brand site with subtle motion, glows and gradient accents.',
