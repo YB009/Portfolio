@@ -7,7 +7,7 @@ const projects = [
   {
     id: 'workvite',
     title: 'Workvite',
-    url: 'https://team-task-manager-p15t.onrender.com',
+    url: 'https://workvite.vercel.app/',
     logo: '/logos/workvite.png',
     blurb:
       'Team task manager with a React + Vite UI, Firebase auth (email/password + social logins), and an Express + Prisma API backed by PostgreSQL. Includes team/role-based organization and task workflows.',
