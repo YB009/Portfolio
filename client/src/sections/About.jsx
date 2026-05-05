@@ -54,7 +54,7 @@ export default function About() {
       id="about"
       eyebrow="About"
       title="Hi, I’m Owolabi Daniel"
-      subtitle="BSc Computer Science • Web developer (2+ year)"
+      subtitle="BSc Computer Science • Web developer (3+ year)"
     >
       <Card>
         <div className="space-y-4">

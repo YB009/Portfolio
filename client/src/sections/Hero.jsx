@@ -14,7 +14,7 @@ export default function Hero() {
           transition={{ delay: 0.05 }}
           className="text-xs uppercase tracking-[0.25em] text-slate-400"
         >
-          Trusted engineer since 2024
+          Trusted engineer since 2023
         </motion.p>
 
         <motion.h1

@@ -5,6 +5,15 @@
 
 const projects = [
   {
+    id: 'bugsense',
+    title: 'BugSense',
+    url: 'https://bugsensedashboard-production.up.railway.app',
+    logo: '/logos/bugsense.svg',
+    blurb:
+      'Error monitoring platform with a JavaScript SDK, NestJS microservices, ClickHouse event storage, Redis alert processing, live dashboard streams, project-scoped API keys, source maps, and Gemini-assisted issue grouping.',
+    tags: ['Next.js', 'NestJS', 'TypeScript', 'ClickHouse', 'Redis', 'Postgres', 'Railway', 'SDK'],
+  },
+  {
     id: 'workvite',
     title: 'Workvite',
     url: 'https://workvite.vercel.app/',
@@ -35,3 +44,5 @@ const projects = [
   
   export default projects
   
+
+
