@@ -46,7 +46,7 @@ export default function ResumePage() {
       setImgDims({ w: img.naturalWidth, h: img.naturalHeight })
     }
     img.onerror = () => setUseImage(false)
-    img.src = '/resume.jpg'
+    img.src = '/resume.png'
   }, [])
 
   const onImgLoad = () => {
@@ -97,16 +97,16 @@ export default function ResumePage() {
             <div
               className="mx-auto rounded-xl border border-white/10 glass overflow-hidden"
               style={{
-                width: imgDims.w ? `${imgDims.w}px` : 'auto',
-                height: imgDims.h ? `${imgDims.h}px` : 'auto'
+                width: imgDims.w ? `min(100%, ${imgDims.w}px)` : '100%',
+                maxWidth: '100%'
               }}
             >
               <img
                 ref={imgRef}
-                src="/resume.jpg"
+                src="/resume.png"
                 alt="Resume preview"
                 onLoad={onImgLoad}
-                className="block w-full h-full"
+                className="block w-full h-auto"
                 loading="eager"
               />
             </div>
@@ -154,3 +154,5 @@ export default function ResumePage() {
     </div>
   )
 }
+
+
