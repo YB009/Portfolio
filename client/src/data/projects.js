@@ -7,7 +7,7 @@ const projects = [
   {
     id: 'bugsense',
     title: 'BugSense',
-    url: 'https://www.npmjs.com/package/@bugsense/bugsense-js',
+    url: 'https://bugsense.owolabidaniel.me/',
     logo: '/logos/bugsense.svg',
     blurb:
       'Error monitoring platform with a JavaScript SDK, NestJS microservices, ClickHouse event storage, Redis alert processing, live dashboard streams, project-scoped API keys, source maps, and Gemini-assisted issue grouping.',
@@ -44,5 +44,4 @@ const projects = [
   
   export default projects
   
-
 
