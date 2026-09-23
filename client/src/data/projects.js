@@ -5,6 +5,15 @@
 
 const projects = [
   {
+    id: 'ticketer',
+    title: 'Ticketer Africa',
+    url: 'https://www.ticketer.africa/',
+    logo: '/logos/ticketer.png',
+    blurb:
+      'Event-ticketing platform for discovering, buying, and securely reselling tickets across Africa. Built production features across auth, dashboards, wallet funding, ticket purchase and resale, event operations, and admin tools with Paystack payment flows, structured error handling, and payment-focused UX recovery.',
+    tags: ['Next.js', 'React', 'TypeScript', 'TanStack Query', 'Node.js', 'Express', 'Prisma', 'Paystack'],
+  },
+  {
     id: 'bugsense',
     title: 'BugSense',
     url: 'https://bugsense1.owolabidaniel.me/',
@@ -41,7 +50,6 @@ const projects = [
     tags: ['React', 'Vite', 'Framer Motion', 'Tailwind', 'Express', 'Node'],
   },
 ]
-  
+
   export default projects
-  
 
