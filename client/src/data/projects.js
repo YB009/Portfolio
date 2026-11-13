@@ -5,6 +5,15 @@
 
 const projects = [
   {
+    id: 'paylandlord',
+    title: 'PayLandlord',
+    url: 'https://paylandlord.ng/',
+    logo: '/logos/paylandlord.png',
+    blurb:
+      'Nigerian property and services marketplace where users buy or rent homes and land directly from owners and hire artisans and professionals, with every payment held in escrow. Built the whole product end to end, front end and back end: listings across all 36 states and the FCT, an integrated wallet system with Kuda-powered payments and bank withdrawals for providers, BVN identity verification, real-time transaction tracking, and tiered provider subscriptions.',
+    tags: ['Laravel', 'Blade', 'Tailwind', 'PHP', 'Yajra DataTables', 'Fortify', 'Jetstream', 'MySQL', 'Kuda'],
+  },
+  {
     id: 'ticketer',
     title: 'Ticketer Africa',
     url: 'https://www.ticketer.africa/',
